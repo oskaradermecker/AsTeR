@@ -1,0 +1,10 @@
+# Compiled files
+
+.ipynb_checkpoints/
+__pycache__/
+
+# Heavy files
+
+images/
+audios/
+mapping/

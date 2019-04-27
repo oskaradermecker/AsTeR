@@ -96,9 +96,6 @@ class Voice_IBM:
 
     def __init__(self):
 
-        crd = {'key': "Ph94LQ1K6ptTwpLhmFGyR5-YhLoaMe47c1Xkc5hyyTTJ",
-               'url': "https://stream.watsonplatform.net/speech-to-text/api"}
-
         self.stt = SpeechToTextV1(iam_apikey=crd['key'], url=crd['url'])
         self.stt.set_default_headers({'x-watson-learning-opt-out': 'true'})
 
@@ -133,7 +130,6 @@ class Image_IBM:
 
     def __init__(self):
 
-        api_key = "FaLELgI0pWzaZ97BD2xBypbNFlkVGC0F3rd3UGWvq7mS"
         self.api = VisualRecognitionV3('2018-03-19', iam_apikey=api_key)
 
     def request(self, image_path):
@@ -147,8 +143,6 @@ class Senti_IBM:
 
     def __init__(self):
 
-        api_key = "Li_wCSKM-mlqNxhSdfVdrhKABmMvNcFmRb9OH9LuX0Wi"
-        url_key = "https://gateway.watsonplatform.net/natural-language-understanding/api"
         self.api = NaturalLanguageUnderstandingV1(version='2018-11-16', iam_apikey=api_key, url=url_key)
 
     def request(self, message):
@@ -164,7 +158,6 @@ class Voice_Rev:
 
     def __init__(self):
 
-        key = '02rlNvf8MH0hwp37dH1vWRmf86zdF88FXsjw5HWeTgKhQ6wFXyrbRy9cCpbHHY4gdXccjlkD3jY-6tL1VWiTCkbgWZDjM'
         self.stt = apiclient.RevAiAPIClient(key)
 
     def request_to_vectors(self, json_request):
