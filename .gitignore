@@ -2,9 +2,14 @@
 
 .ipynb_checkpoints/
 __pycache__/
+process/__pycache__/
 
 # Heavy files
 
 images/
 audios/
 mapping/
+
+# Sensitive data
+
+configs/credentials.yaml
