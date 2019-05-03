@@ -64,10 +64,11 @@ class EmergencyCall:
         low, top, length = 0, 1, len(wav)/rte
         tns, wds = 'LOW', ' '.join(words[v_end < top][-7:])
 
-        key = []
+        self.lst = []
         for wrd in self.key.keys(): 
-            if wrd in wds and not (wrd in ' '.join(key)): 
-                key.append('{} ({})'.format(wrd, self.key[wrd]))
+            if wrd in wds and not (wrd in [e[0] for e in self.lst]): 
+                self.lst.append((wrd, self.key[wrd]))
+        self.lst = list(sorted(self.lst, key=lambda x: x[1], reverse=True)[:5])
 
         sig = wav[max(0, int(low*rte)):min(wav.shape[0], int(top*rte))][:,0]
         sig = interpolate(np.arange(len(sig)), np.arange(rte), sig)
@@ -116,7 +117,7 @@ class EmergencyCall:
         if tns == 'HIGH': ax4.add_artist(Rectangle((15, -3), len(list(tns))*11, 16, fill=False))
             
         ax5 = plt.subplot(gds[4,:], frameon=False)
-        t_1 = ax5.text(6.5, 5, ' | '.join(key), fontsize=14)
+        t_1 = ax5.text(6.5, 5, ' | '.join(['{} ({})'.format(e[0], e[1]) for e in self.lst]), fontsize=14)
         ax5.set_yticks([])
         ax5.set_xticks([])
         ax5.set_title('Keywords', x=-0.01, fontsize=11)
@@ -131,9 +132,11 @@ class EmergencyCall:
             wds = ' '.join(words[v_end < top][-7:])
             try: tns = self.sco[v_end < top][-1]
             except: tns = self.sco[-1]
+
             for wrd in self.key.keys(): 
-                if wrd in wds and not (wrd in ' '.join(key)): 
-                    key.append('{} ({})'.format(wrd, self.key[wrd]))
+                if wrd in wds and not (wrd in [e[0] for e in self.lst]): 
+                    self.lst.append((wrd, self.key[wrd]))
+            self.lst = list(sorted(self.lst, key=lambda x: x[1], reverse=True)[:5])
 
             sig = wav[max(0, int(low*rte)):min(wav.shape[0], int(top*rte))][:,0]
             sig = interpolate(np.arange(len(sig)), np.arange(rte), sig)
@@ -145,7 +148,7 @@ class EmergencyCall:
             s_1.set_ydata(sig)
             s_2.set_ydata(z)
             t_0.set_text(wds)
-            t_1.set_text(' | '.join(key))
+            t_1.set_text(' | '.join(['{} ({})'.format(e[0], e[1]) for e in self.lst]))
             
             ax4.artists[-1].remove()
             if tns == 'LOW': ax4.add_artist(Rectangle((-152, -3), len(list(tns))*13, 16, fill=False))
@@ -171,5 +174,5 @@ if __name__ == '__main__':
     if prs.withFilm == 'True': prs.withFilm = True
     else: prs.withFilm = False
 
-    cll = EmergencyCall('calls/{}'.format(prs.filename), load_file=False)
+    cll = EmergencyCall('calls/{}'.format(prs.filename), load_file=True)
     if prs.withFilm: cll.generate_video()
