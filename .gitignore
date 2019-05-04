@@ -8,7 +8,7 @@ process/__pycache__/
 
 images/
 audios/
-mapping/
+maps/*.jb
 
 # Sensitive data
 
