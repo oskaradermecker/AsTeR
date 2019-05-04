@@ -12,15 +12,16 @@ class SimulationFire():
 		# Geography
 		self.map_top_left=map_top_left
 		self.map_bottom_right=map_bottom_right
-		self.grid = self._generate_grid(map_top_left, map_bottom_right, grid_width)    
+		self.grid = self._generate_grid(map_top_left, map_bottom_right, grid_width)
+		self.grid_width = grid_width
 
 		# Fire locations - TODO add fire_starts and create function
-		if fire_starts is None:
-			self.fire_starts = [(self.grid.shape[0]//2, self.grid.shape[1]//2)]
-
 		self.fire_matrix_t0 = np.zeros((self.grid.shape[0], self.grid.shape[1]))
-		for pos in self.fire_starts:
-			self.fire_matrix_t0[pos[0], pos[1]]=1
+		if fire_starts is None:
+			self.fire_matrix_t0[self.grid.shape[0]//2, self.grid.shape[1]//2]=1
+		else:
+			self._fire_start_to_grid(fire_starts)
+			assert(self.fire_matrix_t0.sum().sum() == len(fire_starts)), 'Not all fire start position considered'
 
 		# Simulation parameters
 		self.n_steps=n_steps
@@ -56,6 +57,15 @@ class SimulationFire():
 		grid_coordinates = self._grid_coordinates(latitudes, longitudes)
 		return grid_coordinates
 
+	def _coordinates_to_grid(self, latitude, longitude):
+		i = int((self.map_top_left[0]-latitude)//self.grid_width)
+		j = int((longitude-self.map_top_left[1])//self.grid_width)
+		return i,j
+
+	def _fire_start_to_grid(self, fire_starts):
+		for position in fire_starts:
+			self.fire_matrix_t0[self._coordinates_to_grid(*position)]=1
+
 	def _perturbation_matrix(self, matrix, variance=0.3):
 		"""
 		Random gaussian perturbation of mean 0 on a given matrix.
@@ -67,7 +77,7 @@ class SimulationFire():
 		"""
 		return matrix + variance*np.random.randn(*matrix.shape)
 
-	def _fire_locations(self, initial_matrix, transfer_matrix, fire_threshold=0.8):
+	def _fire_locations(self, initial_matrix, transfer_matrix, fire_threshold=0.5):
 		"""
 		Given an initial matrix with ones at the location of a fire, we run a simulation of how the fire
 		will evolve given a transfer matrix which takes into account parameters such as wind direction.
@@ -93,6 +103,7 @@ class SimulationFire():
 			# Setting values between 0 and 1
 			fire_matrix = np.minimum(fire_matrix, 1)
 			fire_matrix = np.maximum(fire_matrix, 0)
+			fire_matrix = np.round(fire_matrix, 2)
 
 		return fire_loc_df
 
