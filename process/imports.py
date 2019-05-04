@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from io import StringIO
+from PIL import Image
 from pqdict import PQDict
 from scipy.io import wavfile
 from scipy.signal import periodogram
@@ -35,6 +36,7 @@ from watson_developer_cloud.natural_language_understanding_v1 import EmotionOpti
 
 try:
     import folium
+    import seaborn as sns
     import matplotlib.pyplot as plt
     import matplotlib.gridspec as gridspec
 

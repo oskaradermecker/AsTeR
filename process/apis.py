@@ -114,4 +114,4 @@ class Voice_Rev:
 
 if __name__ == '__main__':
 
-    print(Image_IBM().request('images/earthquake_road.jpg'))
+    print(Image_IBM().request('images/drone_fire.jpg'))
