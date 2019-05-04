@@ -112,9 +112,6 @@ class Voice_Rev:
         out = self.stt.get_transcript_json(job.id)
         return self.request_to_vectors(out)
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
 
-    #print(Image_IBM().request('images/earthquake_road.jpg'))
-
-    #graph = joblib.load('map_sf.jb')
-    #print(ShortestPath(graph).dijkstra('40', '70'))
+    print(Image_IBM().request('images/earthquake_road.jpg'))

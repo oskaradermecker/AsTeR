@@ -10,6 +10,7 @@ import joblib
 import warnings
 import operator
 import argparse
+import geopandas
 import numpy as np
 import pandas as pd
 
@@ -33,6 +34,7 @@ from watson_developer_cloud.natural_language_understanding_v1 import EmotionOpti
 # Visual packages
 
 try:
+    import folium
     import matplotlib.pyplot as plt
     import matplotlib.gridspec as gridspec
 
