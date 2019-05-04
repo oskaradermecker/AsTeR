@@ -174,5 +174,5 @@ if __name__ == '__main__':
     if prs.withFilm == 'True': prs.withFilm = True
     else: prs.withFilm = False
 
-    cll = EmergencyCall('calls/{}'.format(prs.filename), load_file=True)
+    cll = EmergencyCall('calls/{}'.format(prs.filename), load_file=False)
     if prs.withFilm: cll.generate_video()

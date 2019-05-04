@@ -112,6 +112,39 @@ class Voice_Rev:
         out = self.stt.get_transcript_json(job.id)
         return self.request_to_vectors(out)
 
+class Meteo_Sky:
+
+    def __init__(self, credentials='configs/credentials.yaml'):
+
+        with open(credentials, 'r') as raw: crd = yaml.safe_load(raw)
+        self.url = '{}{}'.format(crd['meteo_sky']['url'], crd['meteo_sky']['key'])
+        del crd
+
+    def request(self, longitude, latitude, date):
+
+        t_s = int(datetime.timestamp(date))
+        req = '{}/{},{},{}'.format(self.url, latitude, longitude, t_s)
+        req = requests.get(req).json()
+
+        req = req['hourly']['data']
+        lst_keys = []
+        for ele in req: lst_keys += list(ele.keys())
+        lst_keys = np.unique(lst_keys)
+
+        dic = dict()
+        for key in lst_keys: dic[key] = []
+        for ele in req:
+            for key in lst_keys:
+                if key not in ele.keys(): dic[key].append(np.nan)
+                else: dic[key].append(ele[key])
+
+        dtf = pd.DataFrame.from_dict(dic)
+        dtf.time = [datetime.fromtimestamp(int(ele)) for ele in dtf.time]
+        dtf.set_index('time', inplace=True)
+        dtf.drop(['summary', 'icon', 'uvIndex', 'visibility', 'precipType', 'pressure'], axis=1, inplace=True)
+
+        return dtf
+
 if __name__ == '__main__':
 
-    print(Image_IBM().request('images/drone_fire.jpg'))
+    print(Meteo_Sky().request('-121.449855', '39.746697', datetime.datetime(year=2019, month=3, day=1)))
