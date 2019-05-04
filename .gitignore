@@ -1,3 +1,7 @@
+# Notebooks
+
+*.ipynb
+
 # Compiled files
 
 .ipynb_checkpoints/
