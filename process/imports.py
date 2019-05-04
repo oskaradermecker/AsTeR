@@ -3,17 +3,22 @@
 # Project: AsTeR
 
 import sys
+import tqdm
 import time
 import json
 import yaml
 import joblib
+import branca
 import requests
 import warnings
 import operator
 import argparse
 import geopandas
+import scipy as sp
+import scipy.ndimage
 import numpy as np
 import pandas as pd
+import geojsoncontour
 
 from io import StringIO
 from PIL import Image
@@ -22,6 +27,7 @@ from datetime import datetime
 from scipy.io import wavfile
 from scipy.signal import periodogram
 from scipy.interpolate import interp1d
+from scipy.interpolate import griddata
 
 # API related packages
 
@@ -42,6 +48,7 @@ try:
     import matplotlib.pyplot as plt
     import matplotlib.gridspec as gridspec
 
+    from folium import plugins
     from IPython.core.display import HTML
     from matplotlib.patches import Rectangle
     from matplotlib.animation import writers

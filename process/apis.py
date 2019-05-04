@@ -141,7 +141,9 @@ class Meteo_Sky:
         dtf = pd.DataFrame.from_dict(dic)
         dtf.time = [datetime.fromtimestamp(int(ele)) for ele in dtf.time]
         dtf.set_index('time', inplace=True)
-        dtf.drop(['summary', 'icon', 'uvIndex', 'visibility', 'precipType', 'pressure'], axis=1, inplace=True)
+        for key in ['summary', 'icon', 'uvIndex', 'visibility', 'precipType', 'pressure', 'precipProbability']:
+            try: dtf.drop(key, axis=1, inplace=True)
+            except: pass
 
         return dtf
 
