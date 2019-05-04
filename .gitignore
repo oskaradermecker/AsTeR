@@ -10,9 +10,8 @@ process/__pycache__/
 
 # Heavy files
 
-images/
-audios/
 maps/*.jb
+images/*.jpg
 
 # Sensitive data
 
