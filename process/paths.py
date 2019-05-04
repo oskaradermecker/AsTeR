@@ -100,6 +100,13 @@ class Trajectory:
 
         return path
 
+    def closest_key(self, longitude, latitude):
+
+        keys = [(float(e.split(':')[0]), float(e.split(':')[1])) for e in self.G.keys()]
+        dist = np.sum(np.abs(np.asarray(keys) - np.asarray([longitude, latitude])), axis=1)
+        clos = keys[dist.argmin()]
+
+        return '{}:{}'.format(clos[0], clos[1])
 
     def visual_path(self, origin, goal, center, zoom=12):
 
