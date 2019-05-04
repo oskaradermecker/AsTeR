@@ -1,6 +1,6 @@
 # (Dis)AsTeR
 
-![LOGO](./branding/logo_white.png)
+![LOGO](./branding/logo_red.png)
 
 This open-source project starting on April 27th. During the IBM Call for Code hackathon at UC Berkeley, we decided to build a disaster manager platform, dispatching the right resources at the right time given whatever inputs we may have. Part of those inputs are:
 
