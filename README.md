@@ -13,3 +13,7 @@ This open-source project starting on April 27th. During the IBM Call for Code ha
 ![MAPS](./branding/trajectories.png)
 
 For our first example, we considered the city of San Francisco and simulated the dispatch of forces on the field. What would happen during the Big One? How would the city react? What are the resources available for us to mitigate the aftermath? ...
+
+## TO DOs
+
+![STEPS](./branding/next_steps.jpg)
