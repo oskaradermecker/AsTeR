@@ -2,7 +2,7 @@
 
 ![LOGO](./branding/logo_red.png)
 
-This open-source project starting on April 27th. During the IBM Call for Code hackathon at UC Berkeley, we decided to build a disaster manager platform, dispatching the right resources at the right time given whatever inputs we may have. Part of those inputs are:
+This open-source project started on April 27th. During the IBM Call for Code hackathon at UC Berkeley, we decided to build a disaster manager platform to dispatch the right resources at the right time given whatever inputs we may have. Some of those inputs include:
 
 - Emergency calls to 911, which are analyzed in real-time. Through speech-to-text technology, we extract insights about the problem, we quantify the priority and detect the keywords related to the issue for further control.
 
