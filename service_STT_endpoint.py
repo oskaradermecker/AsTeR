@@ -16,12 +16,13 @@ api_GGC = Voice_GGC()
 if __name__ == '__main__':
 
     app = Flask('STT')
-    api = Api(app)
+    run_with_ngrok(app)
 
     @app.route('/speech-to-text', methods=['POST'])
     def run_service():
 
         fle = request.files['audio_file']
+        if not os.path.exists('.tmp'): os.mkdir('.tmp')
         nme = '/'.join(['./.tmp', secure_filename(fle.filename)])
         fle.save(nme)
 
@@ -33,4 +34,5 @@ if __name__ == '__main__':
         arg = {'status': 200, 'mimetype': 'application/json'}
         return Response(response=json.dumps(req), **arg)
 
-    app.run(host='127.0.0.1', port='8080', threaded=True)
+    #app.run(host='127.0.0.1', port='8080', threaded=True)
+    app.run()
