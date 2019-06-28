@@ -3,6 +3,7 @@ from scipy import signal
 import pandas as pd
 
 class SimulationFire():
+
 	def __init__(self, map_top_left, map_bottom_right, grid_width, n_steps, \
 		transfer_matrix, fire_starts=None, random_seed=0):
 		# Set randomness
@@ -29,12 +30,9 @@ class SimulationFire():
 		# Fire propagation
 		self.transfer_matrix = transfer_matrix
 
-
-
 	def run(self):
 		self.all_fires=self._fire_locations(self.fire_matrix_t0	, self.transfer_matrix)
 		return self.all_fires
-
 
 	def _grid_coordinates(self, lats, lons):
 		"""
@@ -106,6 +104,3 @@ class SimulationFire():
 			fire_matrix = np.round(fire_matrix, 2)
 
 		return fire_loc_df
-
-
-
