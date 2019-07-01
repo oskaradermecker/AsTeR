@@ -2,11 +2,14 @@
 # Date:    02 May 2019
 # Project: AsTeR
 
+import os
+import io
 import sys
 import tqdm
 import time
 import json
 import yaml
+import wave
 import joblib
 import branca
 import requests
@@ -30,10 +33,7 @@ from scipy.interpolate import interp1d
 from scipy.interpolate import griddata
 
 # API related packages
-
-from rev_ai import apiclient
 from ibm_watson import VisualRecognitionV3
-from watson_developer_cloud import SpeechToTextV1
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 import Features
 from watson_developer_cloud.natural_language_understanding_v1 import KeywordsOptions

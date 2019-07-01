@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-
 class SimulationCalls():
 	#NOTE: Use @autoassign in the future
 	def __init__(self, map_center, map_radius, n_steps, \
@@ -30,11 +29,9 @@ class SimulationCalls():
 			self.epicenters = np.array([np.array(v) for (k,v) in call_centers.items()])
 			self.background_epicenters = np.array([np.array(v) for (k,v) in background_call_centers.items()])
 
-
 	def run(self):
 		self.all_calls = self._all_calls_gen(self.epicenters, self.background_epicenters)
 		return self.all_calls
-
 
 	def _epicenter_gen(self, center, radius, nb_points):
 		"""
@@ -71,7 +68,6 @@ class SimulationCalls():
 		
 		return all_calls
 
-
 	def _all_calls_gen(self, epicenters, background_epicenters=None):
 		"""
 		Generates a set number of calls taken from a multivariate distribution around each center.
@@ -90,4 +86,3 @@ class SimulationCalls():
 			all_calls = pd.concat([all_calls, background_calls], axis=0)
 			
 		return all_calls
-
